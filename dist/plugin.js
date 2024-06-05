@@ -1,5 +1,5 @@
-exports.version = 1
-exports.apiRequired = 1
+exports.version = 1.1
+exports.apiRequired = 8.85
 exports.repo = "rejetto/redirect-root"
 exports.description = "Redirect users trying to access root directly"
 
@@ -10,9 +10,9 @@ exports.config = {
 exports.init = api => ({
     middleware(ctx) {
         const url = api.getConfig('url')
-        if (url && ctx.path === '/') {
+        if (url && url !== '/' && ctx.path === '/') {
             ctx.redirect(url)
-            return true
+            ctx.stop()
         }
     }
 })
